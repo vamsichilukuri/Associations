@@ -4,15 +4,15 @@ const { User, Post } = require("../config/database");
 Post.belongsTo(User);
 
 //  GET All Post's
-const allPosts = (req, res) => {
-    Post.findAll({ include: [User] })
+const allPosts = async (req, res) => {
+   await Post.findAll({ include: [User] })
         .then((users) => res.send(users))
         .catch((error) => res.send(error));
 };
 
 //  INSERT New Post
-const create = (req, res) => {
-    Post.create({
+const create = async (req, res) => {
+   await Post.create({
         title: req.body.title,
         text: req.body.text,
         UserId: req.body.userId,
@@ -22,15 +22,15 @@ const create = (req, res) => {
 };
 
 //  FIND Post By PRIMARY_KEY
-const getOne = (req, res) => {
-    Post.findByPk(req.params.id)
+const getOne = async (req, res) => {
+   await Post.findByPk(req.params.id)
         .then((post) => res.send(post))
         .catch((error) => res.send(error));
 };
 
 //  FIND Post By Post ID
-const updateByPostId = (req, res) => {
-    Post.update(
+const updateByPostId = async (req, res) => {
+   await Post.update(
         { title: req.body.title, text: req.body.text },
         { where: { id: req.params.id } }
     )
@@ -39,8 +39,8 @@ const updateByPostId = (req, res) => {
 };
 
 //  FIND Post By User ID
-const updateByUserId = (req, res) => {
-    Post.update(
+const updateByUserId = async (req, res) => {
+   await Post.update(
         { title: req.body.title, text: req.body.text },
         { where: { UserId: req.body.userId } }
     )
@@ -49,8 +49,8 @@ const updateByUserId = (req, res) => {
 };
 
 //  DELETE Post By ID
-const deletePost = (req, res) => {
-    Post.destroy({ where: { id: req.params.id } })
+const deletePost = async (req, res) => {
+   await Post.destroy({ where: { id: req.params.id } })
         .then(() => res.send("Post Deleted Successfully"))
         .catch((error) => res.send(error));
 };
