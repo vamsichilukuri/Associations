@@ -61,4 +61,5 @@ module.exports = {
     updateByPostId,
     updateByUserId,
     deletePost,
+   
 };
