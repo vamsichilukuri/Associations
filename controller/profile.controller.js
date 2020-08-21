@@ -4,36 +4,36 @@ const { Profile, User } = require("../config/database");
 Profile.belongsTo(User);
 
 //  GET All Profile's
-const getAll = (req, res) => {
-    Profile.findAll()
+const getAll = async (req, res) => {
+   await Profile.findAll()
         .then((profiles) => res.send(profiles))
         .catch((error) => res.send(error));
 };
 
 //  GET One Profile By ID
-const getOne = (req, res) => {
-    Profile.findByPk(req.params.id)
+const getOne = async (req, res) => {
+   await Profile.findByPk(req.params.id)
         .then((profile) => res.send(profile))
         .catch((error) => res.send(error));
 };
 
 //  INSERT New Profile with User ID
-const create = (req, res) => {
-    Profile.create({ name: req.body.name, UserId: req.body.userId })
+const create = async (req, res) => {
+   await Profile.create({ name: req.body.name, UserId: req.body.userId })
         .then((profile) => res.send(profile))
         .catch((error) => res.send(error));
 };
 
 //  UPDATE Profile By Profile ID
-const update = (req, res) => {
-    Profile.update({ name: req.body.name }, { where: { id: req.params.id } })
+const update = async (req, res) => {
+   await Profile.update({ name: req.body.name }, { where: { id: req.params.id } })
         .then(() => res.send("updated successfully"))
         .catch((error) => res.send(error));
 };
 
 //  DELETE Profile By Profile ID
-const deleteOne = (req, res) => {
-    Profile.destroy({ where: { id: req.params.id } })
+const deleteOne = async (req, res) => {
+   await Profile.destroy({ where: { id: req.params.id } })
         .then(() => res.send("profile has been deleted successfully"))
         .catch((error) => res.send(error));
 };
